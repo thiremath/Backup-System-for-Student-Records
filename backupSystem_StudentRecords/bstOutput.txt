@@ -1,0 +1,17 @@
+Inorder Traversal
+BST:  5:CC, 7:AA, 10:DD, 13:BB, 14:EE
+Backup-1:  5:CC, 7:AA, 10:DD, 13:BB, 14:EE
+Backup-2:  5:CC, 7:AA, 10:DD, 13:BB, 14:EE
+Backup-3:  5:CC, 7:AA, 10:DD, 13:BB, 14:EE
+
+Sum of all the B-Numbers in each tree
+BST: 49
+Backup-1: 49
+Backup-2: 49
+Backup-3: 49
+
+Sum of all the B-Numbers after increment
+BST: 54
+Backup-1: 54
+Backup-2: 54
+Backup-3: 50

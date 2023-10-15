@@ -1,8 +1,9 @@
 package backupSystem_StudentRecords.algorithm;
 
+import backupSystem_StudentRecords.projectmanager.ProjectManager;
+
 public class BinarySearchTree {
     public NodeImpl root ;
-    StringBuilder s ;
     public BinarySearchTree(){ 
         root = null; 
     }
@@ -59,19 +60,17 @@ public class BinarySearchTree {
     }
 
     public void callinorder(){
-        s = new StringBuilder() ;
         inorder1(root);
-        if((s.length() > 0)  && s.charAt(s.length()-1) == ',') {
-            s.deleteCharAt(s.length() - 1);
+        if((ProjectManager.results.length() > 0)  && ProjectManager.results.charAt(ProjectManager.results.length()-1) == ',') {
+            ProjectManager.results.deleteCharAt(ProjectManager.results.length() - 1);
         }
-        System.out.print(s);
     }
 
     public void inorder1(NodeImpl root)
     {
         if (root != null) {
             inorder1(root.left);
-            s.append(" "+root.b_Number + ":" + root.name + ",") ;
+            ProjectManager.results.append(" "+root.b_Number + ":" + root.name + ",") ;
             inorder1(root.right);
         }
     }

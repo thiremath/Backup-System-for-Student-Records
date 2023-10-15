@@ -14,7 +14,6 @@ public class BSTBuilder {
     String InputFile;
     FilterAllImpl fAllImpl = new FilterAllImpl() ;
     FilterPrimeImpl fPrimeImpl = new FilterPrimeImpl() ;
-    StringBuilder s ;
     public BSTBuilder(){
         main_BST = new BinarySearchTree() ;
         backup_1 = new BinarySearchTree() ;
@@ -47,32 +46,30 @@ public class BSTBuilder {
     }
 
     public void printTrees(){
-        System.out.println("Inorder Traversal");
-        System.out.print("BST: ");
+        ProjectManager.results.append("Inorder Traversal\n");
+        ProjectManager.results.append("BST: ");
         main_BST.callinorder();
-        System.out.print("\n");
-        System.out.print("Backup-1: ");
+        ProjectManager.results.append("\n");
+        ProjectManager.results.append("Backup-1: ");
         backup_1.callinorder();
-        System.out.print("\n");
-        System.out.print("Backup-2: ");
+        ProjectManager.results.append("\n");
+        ProjectManager.results.append("Backup-2: ");
         backup_2.callinorder();
-        System.out.print("\n");
-        System.out.print("Backup-3: ");
+        ProjectManager.results.append("\n");
+        ProjectManager.results.append("Backup-3: ");
         backup_3.callinorder();
-        System.out.println("\n");
+        ProjectManager.results.append("\n\n");
     }
 
     public void printSum(){
-        s = new StringBuilder() ;
         String main_BST_Sum = Integer.toString(main_BST.Sum()) ;
-        s.append("BST: "+ main_BST_Sum+"\n") ;
+        ProjectManager.results.append("BST: "+ main_BST_Sum+"\n") ;
         String backup_1_sum = Integer.toString(backup_1.Sum()) ;
-        s.append("Backup-1: "+ backup_1_sum+"\n") ;
+        ProjectManager.results.append("Backup-1: "+ backup_1_sum+"\n") ;
         String backup_2_sum = Integer.toString(backup_2.Sum()) ;
-        s.append("Backup-2: "+backup_2_sum+"\n") ;
+        ProjectManager.results.append("Backup-2: "+backup_2_sum+"\n") ;
         String backup_3_sum = Integer.toString(backup_3.Sum()) ;
-        s.append("Backup-3: "+backup_3_sum) ;
-        System.out.println(s);
+        ProjectManager.results.append("Backup-3: "+backup_3_sum) ;
     }
     
 }

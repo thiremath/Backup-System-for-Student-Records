@@ -3,13 +3,12 @@ package backupSystem_StudentRecords.results;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.util.ArrayList;
 
 import backupSystem_StudentRecords.utils.ExceptionHandler;
 
 public class Results implements ResultsInterface {
-    ArrayList<String> results ;
-    public Results(ArrayList<String> resultIn){
+    StringBuilder results ;
+    public Results(StringBuilder resultIn){
         results = resultIn ;
     }
 
@@ -32,18 +31,12 @@ public class Results implements ResultsInterface {
     @Override
     public void writetoFile(String OutputFileIn) {
         try{
-        File file = new File(OutputFileIn) ;
-        FileWriter fileWriter = new FileWriter(file) ;
-        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter) ;
-        int i = 0 ;
-        for(String s : results){
+            File file = new File(OutputFileIn) ;
+            FileWriter fileWriter = new FileWriter(file) ;
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter) ;
+            String s = String.valueOf(results) ;
             bufferedWriter.write(s);
-            i++ ;
-            if(results.size() != i){
-                bufferedWriter.write("\n");
-            }
-        }
-        bufferedWriter.close();
+            bufferedWriter.close();
         }
         catch(Exception eIn){
             ExceptionHandler.handleException(eIn, "");
