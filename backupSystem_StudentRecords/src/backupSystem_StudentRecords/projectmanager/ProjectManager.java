@@ -1,10 +1,8 @@
-package projectName.projectmanager;
+package backupSystem_StudentRecords.projectmanager;
 
-//import projectName.algorithm.Algorithm;
-import projectName.algorithm.BSTBuilder;
-//import projectName.results.Results;
-import projectName.utils.ExceptionHandler;
-import projectName.utils.FileProcessor;
+import backupSystem_StudentRecords.algorithm.BSTBuilder;
+import backupSystem_StudentRecords.utils.ExceptionHandler;
+import backupSystem_StudentRecords.utils.FileProcessor;
 
 public class ProjectManager implements ProjectManagerInterface{
     public static FileProcessor inputFileProcessor ;
@@ -40,10 +38,10 @@ public class ProjectManager implements ProjectManagerInterface{
         BSTBuilder bst = new BSTBuilder() ;
         bst.insertNodes() ;
         bst.printTrees();
+        System.out.println("Sum of all the B-Numbers in each tree");
         bst.printSum();
-        System.out.println("\n **** Update_Value and print tree, sum **** \n");
+        System.out.println("\nSum of all the B-Numbers after increment");
         bst.updateTree(Update_Value) ;
-        bst.printTrees();
         bst.printSum();
     }
 }

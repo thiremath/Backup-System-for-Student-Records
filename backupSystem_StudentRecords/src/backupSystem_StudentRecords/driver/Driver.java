@@ -1,7 +1,7 @@
-package projectName.driver;
+package backupSystem_StudentRecords.driver;
 
-import projectName.projectmanager.ProjectManager;
-import projectName.utils.ExceptionHandler;
+import backupSystem_StudentRecords.projectmanager.ProjectManager;
+import backupSystem_StudentRecords.utils.ExceptionHandler;
 
 public class Driver {
     public static void main(String[] args) {

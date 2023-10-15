@@ -1,7 +1,8 @@
-package projectName.algorithm;
+package backupSystem_StudentRecords.algorithm;
 
 public class BinarySearchTree {
     public NodeImpl root ;
+    StringBuilder s ;
     public BinarySearchTree(){ 
         root = null; 
     }
@@ -11,39 +12,35 @@ public class BinarySearchTree {
     }
 
     public NodeImpl insert(int b_NumberIn, String nameIn){
-        pair p1 = new pair() ;
-        p1 = insertRec(root, b_NumberIn, nameIn);
-        root = p1.a ;
-        return p1.b ;
+        NodePair pair = new NodePair() ;
+        pair = insertRec(root, b_NumberIn, nameIn);
+        root = pair.a ;
+        return pair.b ;
     }
 
-    public pair insertRec(NodeImpl rootNode, int b_NumberIn, String nameIn)
+    public NodePair insertRec(NodeImpl rootNode, int b_NumberIn, String nameIn)
     {
-        pair p2 = new pair() ;
-        //p.a = p.b = root ;
-        // If the tree is empty,
-        // return a new node
+        NodePair pair = new NodePair() ;
         if (rootNode == null) {
             rootNode = new NodeImpl(b_NumberIn, nameIn);
-            p2.a = rootNode ;
-            p2.b = rootNode ;
-            return p2;
+            pair.a = rootNode ;
+            pair.b = rootNode ;
+            return pair;
         }
  
-        // Otherwise, recur down the tree
         else if (b_NumberIn < rootNode.b_Number){
-            p2 = insertRec(rootNode.left, b_NumberIn, nameIn);
-            rootNode.left = p2.a;
-            p2.a = rootNode ;
+            pair = insertRec(rootNode.left, b_NumberIn, nameIn);
+            rootNode.left = pair.a;
+            pair.a = rootNode ;
         }    
             
         else if (b_NumberIn > rootNode.b_Number){
-            p2 = insertRec(rootNode.right, b_NumberIn, nameIn);
-            rootNode.right = p2.a;
-            p2.a = rootNode ;
+            pair = insertRec(rootNode.right, b_NumberIn, nameIn);
+            rootNode.right = pair.a;
+            pair.a = rootNode ;
         }
-        // Return the (unchanged) node pointer
-        return p2;
+        
+        return pair;
     }
 
     public void update(int updateValueIn){
@@ -55,20 +52,26 @@ public class BinarySearchTree {
         if (root != null) {
             updateinorder(root.left,updateValueIn);
             root.b_Number = root.b_Number+updateValueIn ;
-            root.notifyAllListeners();
+            SubjectInterface subject = root ;
+            subject.notifyAllListeners();
             updateinorder(root.right,updateValueIn);
         }
     }
 
     public void callinorder(){
+        s = new StringBuilder() ;
         inorder1(root);
+        if((s.length() > 0)  && s.charAt(s.length()-1) == ',') {
+            s.deleteCharAt(s.length() - 1);
+        }
+        System.out.print(s);
     }
 
     public void inorder1(NodeImpl root)
     {
         if (root != null) {
             inorder1(root.left);
-            System.out.print(root.b_Number + " " + root.name + "\n");
+            s.append(" "+root.b_Number + ":" + root.name + ",") ;
             inorder1(root.right);
         }
     }

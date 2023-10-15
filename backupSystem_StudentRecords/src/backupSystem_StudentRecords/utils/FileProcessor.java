@@ -1,4 +1,4 @@
-package projectName.utils;
+package backupSystem_StudentRecords.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,6 +14,7 @@ public class FileProcessor implements FileProcessorInterface{
     public Boolean isfileParsed = false;
     File x ;
     Scanner s ;
+    Pair pair = new Pair() ;
 
 
     public FileProcessor(String InputFileIn, String OutputFileIn, String errorLogFileIn, int Debug_LevelIn, int Update_ValueIn){
@@ -40,15 +41,23 @@ public class FileProcessor implements FileProcessorInterface{
     }
 
     @Override
-    public String[] readLine() {
+    public Pair readLine() {
             String[] arraStrings = new String[2];
             String data = s.nextLine();
             data = data.replace(";","") ;
             arraStrings = data.split(":",2) ;
+            try{
+                pair.b_Number = Integer.parseInt(arraStrings[0]) ;
+            }
+            catch(NumberFormatException e){
+                ExceptionHandler.handleException(e,"") ;            
+            }
+            pair.Name = arraStrings[1] ;
             if(!s.hasNextLine()){
                 isfileParsed = true ;
+                s.close();
             }
-            return arraStrings ;
+            return pair ;
     }
     
 }

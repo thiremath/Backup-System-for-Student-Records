@@ -1,11 +1,11 @@
-package projectName.results;
+package backupSystem_StudentRecords.results;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
-import projectName.utils.ExceptionHandler;
+import backupSystem_StudentRecords.utils.ExceptionHandler;
 
 public class Results implements ResultsInterface {
     ArrayList<String> results ;
@@ -18,7 +18,7 @@ public class Results implements ResultsInterface {
         try{
         String errorLogPath = System.getProperty("user.dir")+"/"+"errorLog.txt" ;
         File file = new File(errorLogPath) ;
-        FileWriter fileWriter = new FileWriter(file) ;
+        FileWriter fileWriter = new FileWriter(file,true) ;
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter) ;
         bufferedWriter.write(strIn);
         bufferedWriter.write("\n") ;
