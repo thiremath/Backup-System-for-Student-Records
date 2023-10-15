@@ -1,6 +1,6 @@
 package backupSystem_StudentRecords.projectmanager;
 
-import backupSystem_StudentRecords.algorithm.BSTBuilder;
+import backupSystem_StudentRecords.bstBuilder.BSTBuilder;
 import backupSystem_StudentRecords.results.Results;
 import backupSystem_StudentRecords.utils.ExceptionHandler;
 import backupSystem_StudentRecords.utils.FileProcessor;
@@ -31,10 +31,6 @@ public class ProjectManager implements ProjectManagerInterface{
 
     @Override
     public void run() {
-        //Algorithm algorithm = new Algorithm(inputFileProcessor) ;
-        //algorithm.Compute() ;
-        //Results results = new Results(algorithm.result) ;
-        //results.writetoFile(OutputFile);
         BSTBuilder bst = new BSTBuilder() ;
         bst.insertNodes() ;
         bst.printTrees();

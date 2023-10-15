@@ -1,4 +1,4 @@
-package backupSystem_StudentRecords.algorithm;
+package backupSystem_StudentRecords.bstBuilder;
 import java.util.ArrayList;
 import java.util.HashMap;
 

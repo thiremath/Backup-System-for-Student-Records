@@ -1,4 +1,4 @@
-package backupSystem_StudentRecords.algorithm;
+package backupSystem_StudentRecords.utils;
 
 public class checkPrime {
     public static boolean checkPrimefunc(int number){
