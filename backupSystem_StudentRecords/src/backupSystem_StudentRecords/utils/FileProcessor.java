@@ -34,6 +34,7 @@ public class FileProcessor implements FileProcessorInterface{
             s = myReader ;
         }
         catch(FileNotFoundException e){
+            s.close();
             System.out.println("Unable to read the courseInfo file.");
             e.printStackTrace();
             System.exit(0);

@@ -29,17 +29,26 @@ public class ProjectManager implements ProjectManagerInterface{
         inputFileProcessor = new FileProcessor(InputFile, OutputFile, errorLogFile, Debug_Level, Update_Value) ;
     }
 
+    public void writeToResults(String sIn){
+        results.append(sIn) ;
+    }
+
     @Override
     public void run() {
         BSTBuilder bst = new BSTBuilder() ;
-        bst.insertNodes() ;
-        bst.printTrees();
-        results.append("Sum of all the B-Numbers in each tree\n");
-        bst.printSum();
-        results.append("\n\nSum of all the B-Numbers after increment\n");
-        bst.updateTree(Update_Value) ;
-        bst.printSum();
-        Results r = new Results(results) ;
-        r.writetoFile(OutputFile);
+
+        bst.insert() ;
+        writeToResults("Inorder Traversal\n");
+        bst.inorder();
+        
+        writeToResults("Sum of all the B-Numbers in each tree\n");
+        bst.sum();
+
+        bst.update(Update_Value) ;
+        writeToResults("Sum of all the B-Numbers after increment\n");
+        bst.sum();
+
+        Results R = new Results(results) ;
+        R.writetoFile(OutputFile);
     }
 }

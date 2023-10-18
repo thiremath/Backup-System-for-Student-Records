@@ -6,49 +6,48 @@ public class NodeImpl implements SubjectInterface, ObserverInterface{
     int b_Number ;
     String name ;
     NodeImpl left, right ;
-    HashMap<Filter,ArrayList<ObserverInterface>> observersList ;
+    HashMap<FilterInterface,ArrayList<ObserverInterface>> observersList ;
     ArrayList<ObserverInterface> observers ;
 
     public NodeImpl(int b_NumberIn, String nameIn){
         b_Number = b_NumberIn ;
         name = nameIn ;
         left = right = null ;
-        observersList = new HashMap<Filter,ArrayList<ObserverInterface>>()  ;
+        observersList = new HashMap<FilterInterface,ArrayList<ObserverInterface>>()  ;
     }
 
     @Override
-    public void registerObserver(ObserverInterface obIn, Filter f) {
+    public void registerObserver(ObserverInterface obIn, FilterInterface filterIn) {
         observers = new ArrayList<ObserverInterface>() ;
-        if(observersList.containsKey(f)){
-            observers = observersList.get(f) ;
+        if(observersList.containsKey(filterIn)){
+            observers = observersList.get(filterIn) ;
         }
         observers.add(obIn) ;
-        observersList.put(f,observers) ;
+        observersList.put(filterIn,observers) ;
     }
 
     @Override
-    public void notifyAllListeners() {
-        for (HashMap.Entry<Filter,ArrayList<ObserverInterface>> entry : observersList.entrySet()) {
-            Filter filter = entry.getKey();
+    public void notifyAllObservers() {
+        for (HashMap.Entry<FilterInterface,ArrayList<ObserverInterface>> entry : observersList.entrySet()) {
+            FilterInterface currFilter = entry.getKey();
             ArrayList<ObserverInterface> nodeObservers ;
             nodeObservers = entry.getValue();
 
             for(int i=0;i<nodeObservers.size();i++){
 
-                NodeImpl Observer = (NodeImpl) nodeObservers.get(i);
-                if(filter.fPrimeImpl != null){
-                    if(filter.fPrimeImpl.Prime(b_Number)){
-                        Observer.update(b_Number);
-                    }
-                    continue ;
+                // NodeImpl Observer = (NodeImpl) nodeObservers.get(i);
+                ObserverInterface Observer = nodeObservers.get(i);
+                if(currFilter.check(b_Number)){
+                    Observer.update(b_Number);
                 }
-                else if(filter.fAllImpl != null){
-                    if(filter.fAllImpl.check()){
-                        Observer.update(b_Number);
-                    }
-                }
+
             }            
         }
+    }
+    
+    @Override
+    public void updateNode(int updateValueIn){
+        b_Number += updateValueIn ;
     }
     
 

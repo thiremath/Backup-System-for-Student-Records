@@ -13,81 +13,85 @@ public class BinarySearchTree {
         root = new NodeImpl(b_NumberIn, nameIn); 
     }
 
-    public NodeImpl insert(int b_NumberIn, String nameIn){
+    public NodeImpl bstInsert(int b_NumberIn, String nameIn){
         NodePair pair = new NodePair() ;
-        pair = insertRec(root, b_NumberIn, nameIn);
-        root = pair.a ;
-        return pair.b ;
+        pair = insertNode(root, b_NumberIn, nameIn);
+        root = pair.rootNode ;
+        return pair.anotherNode ;
     }
 
-    public NodePair insertRec(NodeImpl rootNode, int b_NumberIn, String nameIn)
+    public NodePair insertNode(NodeImpl rootNode, int b_NumberIn, String nameIn)
     {
         NodePair pair = new NodePair() ;
         if (rootNode == null) {
             rootNode = new NodeImpl(b_NumberIn, nameIn);
-            pair.a = rootNode ;
-            pair.b = rootNode ;
+            pair.rootNode = rootNode ;
+            pair.anotherNode = rootNode ;
             return pair;
         }
  
-        else if (b_NumberIn < rootNode.b_Number){
-            pair = insertRec(rootNode.left, b_NumberIn, nameIn);
-            rootNode.left = pair.a;
-            pair.a = rootNode ;
+        else if (b_NumberIn <= rootNode.b_Number){
+            pair = insertNode(rootNode.left, b_NumberIn, nameIn);
+            rootNode.left = pair.rootNode;
+            pair.rootNode = rootNode ;
         }    
             
         else if (b_NumberIn > rootNode.b_Number){
-            pair = insertRec(rootNode.right, b_NumberIn, nameIn);
-            rootNode.right = pair.a;
-            pair.a = rootNode ;
+            pair = insertNode(rootNode.right, b_NumberIn, nameIn);
+            rootNode.right = pair.rootNode;
+            pair.rootNode = rootNode ;
         }
         
         return pair;
     }
 
-    public void update(int updateValueIn){
-        updateinorder(root,updateValueIn);
+    public void bstUpdate(int updateValueIn){
+        updateInorder(root,updateValueIn);
     }
 
-    public void updateinorder(NodeImpl root,int updateValueIn)
+    public void updateInorder(NodeImpl root,int updateValueIn)
     {
         if (root != null) {
-            updateinorder(root.left,updateValueIn);
-            root.b_Number = root.b_Number+updateValueIn ;
+            updateInorder(root.left,updateValueIn);
+            root.updateNode(updateValueIn) ;
             SubjectInterface subject = root ;
-            subject.notifyAllListeners();
-            updateinorder(root.right,updateValueIn);
+            subject.notifyAllObservers();
+            updateInorder(root.right,updateValueIn);
         }
     }
 
-    public void callinorder(){
-        inorder1(root);
+    public void bstInorder(){
+        inorder(root);
         if((ProjectManager.results.length() > 0)  && ProjectManager.results.charAt(ProjectManager.results.length()-1) == ',') {
             ProjectManager.results.deleteCharAt(ProjectManager.results.length() - 1);
         }
     }
 
-    public void inorder1(NodeImpl root)
+    public void inorder(NodeImpl root)
     {
         if (root != null) {
-            inorder1(root.left);
-            ProjectManager.results.append(" "+root.b_Number + ":" + root.name + ",") ;
-            inorder1(root.right);
+            inorder(root.left);
+            writeToResults(" "+root.b_Number + ":" + root.name + ",") ;
+            inorder(root.right);
         }
     }
 
-    public int Sum(){
-        return CalcSum(root) ;
+    public int bstSum(){
+        return calcSum(root) ;
     }
 
-    public int CalcSum(NodeImpl root){
-        int k = 0 ;
+    public int calcSum(NodeImpl root){
+        int sum = 0 ;
         if (root != null) {
-            k = root.b_Number ;
-            k += CalcSum(root.left);
-            k += CalcSum(root.right);
+            sum = root.b_Number ;
+            sum += calcSum(root.left);
+            sum += calcSum(root.right);
         }
-        return k ;
+        return sum ;
+    }
+
+    public void writeToResults(String sIn){
+        ProjectManager.results.append(sIn);
     }
 
 }
