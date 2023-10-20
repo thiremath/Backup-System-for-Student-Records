@@ -13,10 +13,12 @@ public class ProjectManager implements ProjectManagerInterface{
     int Debug_Level ;
     int Update_Value ;
     public static StringBuilder results = new StringBuilder() ;
+
     public ProjectManager(String InputFileIn, String OutputFileIn, String errorLogFileIn, String Debug_LevelIn, String Update_ValueIn){
         InputFile = System.getProperty("user.dir")+"/"+InputFileIn ;
         OutputFile = System.getProperty("user.dir")+"/"+OutputFileIn ;
         errorLogFile = System.getProperty("user.dir")+"/"+errorLogFileIn ;
+        
         ExceptionHandler.errorLogFilePath = errorLogFile ;
         try{
             Debug_Level = Integer.parseInt(Debug_LevelIn) ;
@@ -27,6 +29,9 @@ public class ProjectManager implements ProjectManagerInterface{
         }
 
         inputFileProcessor = new FileProcessor(InputFile, OutputFile, errorLogFile, Debug_Level, Update_Value) ;
+
+        Results.deleteFile(OutputFile) ;
+        Results.deleteFile(errorLogFile) ;
     }
 
     public void writeToResults(String sIn){
@@ -35,20 +40,21 @@ public class ProjectManager implements ProjectManagerInterface{
 
     @Override
     public void run() {
-        BSTBuilder bst = new BSTBuilder() ;
+        BSTBuilder bstBuilder = new BSTBuilder() ;
+        Results res = new Results() ;
 
-        bst.insert() ;
+        bstBuilder.insert() ;
         writeToResults("Inorder Traversal\n");
-        bst.inorder();
+        bstBuilder.inorder();
         
         writeToResults("Sum of all the B-Numbers in each tree\n");
-        bst.sum();
+        bstBuilder.sum();
 
-        bst.update(Update_Value) ;
-        writeToResults("Sum of all the B-Numbers after increment\n");
-        bst.sum();
+        bstBuilder.update(Update_Value) ;
+        writeToResults("\n\nSum of all the B-Numbers after increment\n");
+        bstBuilder.sum();
 
-        Results R = new Results(results) ;
-        R.writetoFile(OutputFile);
+        res.writetoFile(OutputFile,results);
+        System.out.println(results);
     }
 }

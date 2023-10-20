@@ -34,8 +34,7 @@ public class NodeImpl implements SubjectInterface, ObserverInterface{
             nodeObservers = entry.getValue();
 
             for(int i=0;i<nodeObservers.size();i++){
-
-                // NodeImpl Observer = (NodeImpl) nodeObservers.get(i);
+                
                 ObserverInterface Observer = nodeObservers.get(i);
                 if(currFilter.check(b_Number)){
                     Observer.update(b_Number);

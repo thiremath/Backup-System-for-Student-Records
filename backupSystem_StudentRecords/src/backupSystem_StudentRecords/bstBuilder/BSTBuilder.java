@@ -26,15 +26,23 @@ public class BSTBuilder {
         FileProcessor fp = ProjectManager.inputFileProcessor ;
         while(!fp.isfileParsed){
             Pair pair = fp.readLine();
-            b_Number = pair.b_Number ;
-            name = pair.Name ;
-            SubjectInterface subject = main_BST.bstInsert(b_Number,name);
-            ObserverInterface object_1 = backup_1.bstInsert(b_Number,name);
-            ObserverInterface object_2 = backup_2.bstInsert(b_Number,name);
-            ObserverInterface object_3 = backup_3.bstInsert(b_Number,name);
-            subject.registerObserver(object_1,fAllImpl);
-            subject.registerObserver(object_2,fAllImpl);
-            subject.registerObserver(object_3,fPrimeImpl);
+            if(pair != null){
+                b_Number = pair.b_Number ;
+                name = pair.Name ;
+                NodeImpl anotherMainNode = new NodeImpl(b_Number,name) ;
+                NodeImpl anotherBackup1Node = new NodeImpl(b_Number,name) ;
+                NodeImpl anotherBackup2Node = new NodeImpl(b_Number,name) ;
+                NodeImpl anotherBackup3Node = new NodeImpl(b_Number,name) ;
+
+                main_BST.bstInsert(anotherMainNode);
+                backup_1.bstInsert(anotherBackup1Node);
+                backup_2.bstInsert(anotherBackup2Node);
+                backup_3.bstInsert(anotherBackup3Node);
+
+                anotherMainNode.registerObserver(anotherBackup1Node,fAllImpl);
+                anotherMainNode.registerObserver(anotherBackup2Node,fAllImpl);
+                anotherMainNode.registerObserver(anotherBackup3Node,fPrimeImpl);
+            }
         }
     }
 
@@ -62,7 +70,7 @@ public class BSTBuilder {
         String backup_2_sum = Integer.toString(backup_2.bstSum()) ;
         writeToResults("Backup-2: "+backup_2_sum+"\n") ;
         String backup_3_sum = Integer.toString(backup_3.bstSum()) ;
-        writeToResults("Backup-3: "+backup_3_sum+"\n\n") ;
+        writeToResults("Backup-3: "+backup_3_sum) ;
     }
 
     public void writeToResults(String sIn){

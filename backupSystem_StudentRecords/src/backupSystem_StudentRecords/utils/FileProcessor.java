@@ -12,9 +12,8 @@ public class FileProcessor implements FileProcessorInterface{
     int Debug_Level;
     int Update_Value;
     public Boolean isfileParsed = false;
-    File x ;
     Scanner s ;
-    Pair pair = new Pair() ;
+    Pair pair ;
 
 
     public FileProcessor(String InputFileIn, String OutputFileIn, String errorLogFileIn, int Debug_LevelIn, int Update_ValueIn){
@@ -30,7 +29,6 @@ public class FileProcessor implements FileProcessorInterface{
             if(!myReader.hasNextLine()){
                 isfileParsed = true ;
             }
-            x = myobj ;
             s = myReader ;
         }
         catch(FileNotFoundException e){
@@ -43,10 +41,12 @@ public class FileProcessor implements FileProcessorInterface{
 
     @Override
     public Pair readLine() {
-            String[] arraStrings = new String[2];
-            String data = s.nextLine();
-            data = data.replace(";","") ;
-            arraStrings = data.split(":",2) ;
+        pair = new Pair() ;
+        String[] arraStrings = new String[2];
+        String line = s.nextLine();
+        if(!line.isEmpty()){
+            line = line.replace(";","") ;
+            arraStrings = line.split(":",2) ;
             try{
                 pair.b_Number = Integer.parseInt(arraStrings[0]) ;
             }
@@ -58,7 +58,12 @@ public class FileProcessor implements FileProcessorInterface{
                 isfileParsed = true ;
                 s.close();
             }
-            return pair ;
+        }
+        else{
+            isfileParsed = true ;
+            return null ;
+        }
+        return pair ;
     }
     
 }

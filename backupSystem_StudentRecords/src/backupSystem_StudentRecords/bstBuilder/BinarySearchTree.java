@@ -1,7 +1,6 @@
 package backupSystem_StudentRecords.bstBuilder;
 
 import backupSystem_StudentRecords.projectmanager.ProjectManager;
-import backupSystem_StudentRecords.utils.NodePair;
 
 public class BinarySearchTree {
     public NodeImpl root ;
@@ -13,36 +12,25 @@ public class BinarySearchTree {
         root = new NodeImpl(b_NumberIn, nameIn); 
     }
 
-    public NodeImpl bstInsert(int b_NumberIn, String nameIn){
-        NodePair pair = new NodePair() ;
-        pair = insertNode(root, b_NumberIn, nameIn);
-        root = pair.rootNode ;
-        return pair.anotherNode ;
+    public void bstInsert(NodeImpl anotherNodeIn){
+        root = insertNode(root, anotherNodeIn);
     }
 
-    public NodePair insertNode(NodeImpl rootNode, int b_NumberIn, String nameIn)
+    public NodeImpl insertNode(NodeImpl rootNodeIn, NodeImpl anotherNodeIn)
     {
-        NodePair pair = new NodePair() ;
-        if (rootNode == null) {
-            rootNode = new NodeImpl(b_NumberIn, nameIn);
-            pair.rootNode = rootNode ;
-            pair.anotherNode = rootNode ;
-            return pair;
+        if (rootNodeIn == null) {
+            return anotherNodeIn;
         }
  
-        else if (b_NumberIn <= rootNode.b_Number){
-            pair = insertNode(rootNode.left, b_NumberIn, nameIn);
-            rootNode.left = pair.rootNode;
-            pair.rootNode = rootNode ;
+        else if (anotherNodeIn.b_Number <= rootNodeIn.b_Number){
+            rootNodeIn.left = insertNode(rootNodeIn.left, anotherNodeIn);
         }    
             
-        else if (b_NumberIn > rootNode.b_Number){
-            pair = insertNode(rootNode.right, b_NumberIn, nameIn);
-            rootNode.right = pair.rootNode;
-            pair.rootNode = rootNode ;
+        else if (anotherNodeIn.b_Number > rootNodeIn.b_Number){
+            rootNodeIn.right = insertNode(rootNodeIn.right, anotherNodeIn);
         }
-        
-        return pair;
+
+        return rootNodeIn;
     }
 
     public void bstUpdate(int updateValueIn){
